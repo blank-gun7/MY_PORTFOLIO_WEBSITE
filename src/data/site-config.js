@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'Rana Raunitraz Singh',
   title: 'ML Engineer & Full-Stack Developer',
   description: 'AI/ML engineer building scalable LLM systems and financial AI platforms.',
-  url: 'https://your-site.vercel.app',
+  url: 'https://my-portfolio-website-green-eta.vercel.app',
   ogImage: '/images/og-image.png',
 
   typewriterPhrases: [

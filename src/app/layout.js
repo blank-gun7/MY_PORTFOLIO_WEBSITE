@@ -17,13 +17,13 @@ const inter = Inter({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://your-site.vercel.app'),
+  metadataBase: new URL('https://my-portfolio-website-green-eta.vercel.app'),
   title: 'Rana Raunitraz Singh | ML Engineer & Full-Stack Developer',
   description: 'AI/ML engineer building scalable LLM systems and financial AI platforms.',
   openGraph: {
     title: 'Rana Raunitraz Singh | ML Engineer & Full-Stack Developer',
     description: 'AI/ML engineer building scalable LLM systems and financial AI platforms.',
-    url: 'https://your-site.vercel.app',
+    url: 'https://my-portfolio-website-green-eta.vercel.app',
     siteName: 'Rana Raunitraz Singh',
     images: [
       {
@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Rana Raunitraz Singh',
-              url: 'https://your-site.vercel.app',
+              url: 'https://my-portfolio-website-green-eta.vercel.app',
               jobTitle: 'ML Engineer & Full-Stack Developer',
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
