@@ -1,0 +1,68 @@
+export const skills = [
+  {
+    category: 'Programming',
+    command: '$ skills --category programming',
+    items: ['Python', 'C++', 'JavaScript (Node.js)', 'PHP', 'OOP'],
+  },
+  {
+    category: 'ML & AI',
+    command: '$ skills --category ml-ai',
+    items: [
+      'Deep Learning',
+      'NLP',
+      'LLMs',
+      'RAG/GraphRAG',
+      'Financial QA',
+      'SSL',
+      'CNNs',
+      'XGBoost',
+      'Random Forest',
+      'K-Means',
+      'KNN Imputation',
+      'SMOTE',
+    ],
+  },
+  {
+    category: 'Libraries & Frameworks',
+    command: '$ skills --category frameworks',
+    items: [
+      'PyTorch',
+      'TensorFlow',
+      'Scikit-Learn',
+      'Hugging Face Transformers',
+      'spaCy',
+      'OpenCV',
+      'YOLO',
+      'Pandas',
+      'NumPy',
+    ],
+  },
+  {
+    category: 'Backend',
+    command: '$ skills --category backend',
+    items: ['FastAPI', 'Flask', 'Django', 'Node.js', 'REST APIs', 'JWT Auth'],
+  },
+  {
+    category: 'Web',
+    command: '$ skills --category web',
+    items: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Tailwind CSS'],
+  },
+  {
+    category: 'Data & Databases',
+    command: '$ skills --category data',
+    items: [
+      'SQL',
+      'MySQL',
+      'MongoDB',
+      'Data Preprocessing',
+      'Data Cleaning',
+      'EDA',
+      'Feature Engineering',
+    ],
+  },
+  {
+    category: 'Cloud & DevOps',
+    command: '$ skills --category devops',
+    items: ['Docker', 'GitHub Actions (CI/CD)', 'AWS (EC2/ECS/EKS)', 'Azure', 'Linux', 'Ubuntu'],
+  },
+];

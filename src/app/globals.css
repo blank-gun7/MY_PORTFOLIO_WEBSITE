@@ -1,26 +1,116 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/* Dark mode via class strategy (Tailwind v4) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== CSS Custom Properties (dual-value: light default, dark override) ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #fafafa;
+  --bg-secondary: #f0f0f5;
+  --bg-terminal: #f6f8fa;
+  --text-primary: #18181b;
+  --text-secondary: #71717a;
+  --border-color: #e4e4e7;
 }
 
+.dark {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-terminal: #0d1117;
+  --text-primary: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --border-color: #27272a;
+}
+
+/* ===== Tailwind Theme: Dual-value colors (resolved at runtime via CSS vars) ===== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-terminal: var(--bg-terminal);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===== Tailwind Theme: Fixed values (accents, fonts, animations) ===== */
+@theme {
+  --color-accent-green: #4ade80;
+  --color-accent-blue: #60a5fa;
+  --color-accent-purple: #a78bfa;
+
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  --font-sans: var(--font-inter), 'Inter', sans-serif;
+
+  --animate-blink: blink 1s step-end infinite;
+  --animate-fade-in-up: fadeInUp 0.5s ease-out;
+  --animate-pulse-green: pulse-green 2s ease-in-out infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-green {
+    0%,
+    100% {
+      box-shadow: 0 0 4px rgba(74, 222, 128, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ===== Base Styles ===== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: rgba(74, 222, 128, 0.3);
+    color: var(--text-primary);
+  }
+}
+
+/* ===== Component Styles ===== */
+@layer components {
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  .glow-green {
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
+  }
 }

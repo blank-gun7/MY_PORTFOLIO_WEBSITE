@@ -1,0 +1,51 @@
+export const experiences = [
+  {
+    id: 'zenalyst',
+    role: 'Founding Developer',
+    company: 'Zenalyst.ai',
+    location: 'Bangalore',
+    dateRange: 'May 2025 – Present',
+    type: 'current',
+    description:
+      'Led a 20-member tech team building an LLM analytics platform for financial insights.',
+    highlights: [
+      'Delivered POC in 7 days and MVP in 15 days, accelerating GTM by ~3×',
+      'Architected scalable LLM platform on AWS (EC2/ECS/EKS) with >99% uptime',
+      'Built LLM caching layer, reducing monthly inference cost by 10%',
+      'Engineered External KnowledgeBase system, increasing retrieval accuracy by ~25%',
+      'Fine-tuned Financial LLMs (LoRA/QLoRA + SFT) for reasoning and SQL execution',
+      'Integrated GraphRAG and structured retrieval pipelines for multi-hop reasoning',
+      'Conducted company-wide hackathon resulting in 6+ strong candidate leads',
+    ],
+    techStack: ['Python', 'FastAPI', 'AWS', 'Docker', 'LLMs', 'RAG', 'GraphRAG', 'ChromaDB'],
+  },
+  {
+    id: 'ieee',
+    role: 'Summer Research Intern',
+    company: 'IEEE SPS, Gujarat Section',
+    location: 'Remote',
+    dateRange: 'May 2025 – Present',
+    type: 'current',
+    description: 'Research on Self-Supervised Learning for medical imaging applications.',
+    highlights: [
+      'Identified Barlow Twins 18-25% superior performance in low-data regimes vs SimCLR/BYOL',
+      'Established baseline Faster R-CNN on VinDr-CXR (18K images) achieving 0.32 mAP',
+      'Pretrained Barlow Twins encoder on 112,120 unlabeled CheXpert chest X-rays',
+    ],
+    techStack: ['PyTorch', 'SSL', 'Barlow Twins', 'Faster R-CNN', 'Medical Imaging'],
+  },
+  {
+    id: 'schiffer',
+    role: 'Data Analyst Intern',
+    company: 'Schiffer and Menezes',
+    location: 'Goa',
+    dateRange: 'May 2024 – July 2024',
+    type: 'past',
+    description: 'Predictive maintenance and equipment log analysis for manufacturing.',
+    highlights: [
+      'Increased machine uptime by 8% with predictive maintenance model using XGBoost',
+      'Processed and analyzed 30,000+ equipment logs using Python (Pandas, NumPy, Matplotlib)',
+    ],
+    techStack: ['Python', 'XGBoost', 'Pandas', 'NumPy', 'Matplotlib'],
+  },
+];
