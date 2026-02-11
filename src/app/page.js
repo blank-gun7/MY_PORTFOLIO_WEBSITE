@@ -1,6 +1,7 @@
 import { siteConfig } from '@/data/site-config';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
+import GitHub from '@/components/sections/GitHub';
 import Experience from '@/components/sections/Experience';
 import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
@@ -16,6 +17,7 @@ export default function Home() {
     <>
       {sections.hero && <Hero />}
       {sections.about && <About />}
+      {sections.github && <GitHub />}
       {sections.experience && <Experience />}
       {sections.projects && <Projects />}
       {sections.skills && <Skills />}
