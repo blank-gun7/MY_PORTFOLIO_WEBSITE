@@ -21,6 +21,7 @@ export const siteConfig = {
   sections: {
     hero: true,
     about: true,
+    github: true,
     experience: true,
     projects: true,
     skills: true,
