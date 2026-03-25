@@ -66,7 +66,7 @@ export default async function ProjectDetailPage({ params }) {
             </span>
             <span className="text-xs font-mono text-text-secondary">{project.dateRange}</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold font-mono text-text-primary mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold font-sans text-text-primary mb-4">
             {project.title}
           </h1>
 
@@ -83,9 +83,24 @@ export default async function ProjectDetailPage({ params }) {
           </div>
         </header>
 
+        {/* Thumbnail Banner */}
+        {project.thumbnail && (
+          <div className="mb-10 rounded-lg overflow-hidden border border-border">
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className="w-full h-auto"
+            />
+          </div>
+        )}
+
         {/* Description */}
-        <section className="mb-10">
-          <p className="text-text-secondary leading-relaxed">{project.longDescription}</p>
+        <section className="mb-10 space-y-4">
+          {project.longDescription.split('\n\n').map((paragraph, i) => (
+            <p key={i} className="text-text-secondary leading-relaxed">
+              {paragraph}
+            </p>
+          ))}
         </section>
 
         {/* Metrics Grid */}

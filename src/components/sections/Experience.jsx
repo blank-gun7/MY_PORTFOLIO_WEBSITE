@@ -26,7 +26,7 @@ function ExperienceCard({ experience, index }) {
           <div>
             <div className="flex items-center gap-2">
               {isCurrent && <span className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />}
-              <h3 className="text-lg font-semibold text-text-primary">{experience.role}</h3>
+              <h3 className="text-lg font-semibold text-text-primary font-sans">{experience.role}</h3>
             </div>
             <p className="text-text-secondary text-sm">
               {experience.company} &middot; {experience.location}
