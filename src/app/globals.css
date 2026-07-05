@@ -15,6 +15,11 @@
   --border-color: #e2dccf;
   --accent: #a3660f;
   --accent-contrast: #ffffff;
+  --cal-0: #efebe2;
+  --cal-1: #e3c89c;
+  --cal-2: #cfa05c;
+  --cal-3: #b57c2e;
+  --cal-4: #8f5e14;
 }
 
 .dark {
@@ -26,6 +31,11 @@
   --border-color: #2c2e34;
   --accent: #e5a15a;
   --accent-contrast: #1a130a;
+  --cal-0: #24262c;
+  --cal-1: #4a3722;
+  --cal-2: #7a5527;
+  --cal-3: #b57c39;
+  --cal-4: #e5a15a;
 }
 
 /* ===== Tailwind Theme: Dual-value colors (resolved at runtime via CSS vars) ===== */

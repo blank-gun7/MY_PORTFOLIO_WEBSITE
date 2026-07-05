@@ -1,68 +1,11 @@
-'use client';
-
-import { useState, useCallback, useRef, useEffect } from 'react';
-
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { useTheme } from '@/hooks/useTheme';
+import ContributionGrid from '@/components/ui/ContributionGrid';
 import { siteConfig } from '@/data/site-config';
 
 const USERNAME = 'blank-gun7';
-const API_URL = `https://github-contributions-api.jogruber.de/v4/${USERNAME}`;
 
-// Warm apricot scale — matches the site accent instead of GitHub green
-const calendarTheme = {
-  light: ['#EDE7DA', '#E3C89C', '#CFA05C', '#B57C2E', '#8F5E14'],
-  dark: ['#24262C', '#4A3722', '#7A5527', '#B57C39', '#E5A15A'],
-};
-
-export default function GitHub() {
-  const { theme, mounted } = useTheme();
-  const [status, setStatus] = useState('loading'); // 'loading' | 'ready' | 'error'
-  const [totalContributions, setTotalContributions] = useState(null);
-  const CalendarRef = useRef(null);
-  const totalRef = useRef(null);
-
-  // Preflight: check if the API is reachable before rendering the calendar
-  useEffect(() => {
-    if (!mounted) return;
-
-    const controller = new AbortController();
-
-    fetch(API_URL, { signal: controller.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error(`API returned ${res.status}`);
-        return res.json();
-      })
-      .then(() => {
-        return import('react-github-calendar');
-      })
-      .then((mod) => {
-        CalendarRef.current = mod.GitHubCalendar || mod.default;
-        setStatus('ready');
-      })
-      .catch((err) => {
-        if (err.name === 'AbortError') return;
-        console.error('[GitHub Calendar] API unreachable:', err.message);
-        setStatus('error');
-      });
-
-    return () => controller.abort();
-  }, [mounted]);
-
-  const handleTransformData = useCallback((contributions) => {
-    const total = contributions.reduce((sum, day) => sum + day.count, 0);
-    totalRef.current = total;
-    return contributions;
-  }, []);
-
-  useEffect(() => {
-    if (totalRef.current !== null && totalContributions === null) {
-      setTotalContributions(totalRef.current);
-    }
-  });
-
-  const Calendar = CalendarRef.current;
+export default function GitHub({ contributions }) {
   const { nowBuilding, stats } = siteConfig;
 
   return (
@@ -84,11 +27,9 @@ export default function GitHub() {
                 GitHub activity — @{USERNAME}
               </p>
               <div className="overflow-x-auto">
-                {status === 'loading' && (
-                  <p className="text-text-secondary text-sm">Loading contributions…</p>
-                )}
-
-                {status === 'error' && (
+                {contributions ? (
+                  <ContributionGrid days={contributions.days} />
+                ) : (
                   <div className="py-4 space-y-2">
                     <p className="text-text-secondary text-sm">
                       Contribution data temporarily unavailable.
@@ -103,25 +44,10 @@ export default function GitHub() {
                     </a>
                   </div>
                 )}
-
-                {status === 'ready' && Calendar && (
-                  <Calendar
-                    username={USERNAME}
-                    theme={calendarTheme}
-                    colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                    blockSize={11}
-                    blockMargin={4}
-                    fontSize={13}
-                    transformData={handleTransformData}
-                    labels={{
-                      totalCount: '{{count}} contributions in the last year',
-                    }}
-                  />
-                )}
               </div>
-              {totalContributions !== null && (
+              {contributions && (
                 <p className="mt-4 text-sm text-text-secondary">
-                  <span className="font-mono text-accent font-bold">{totalContributions}</span>{' '}
+                  <span className="font-mono text-accent font-bold">{contributions.total}</span>{' '}
                   contributions in the last year
                 </p>
               )}
