@@ -19,10 +19,12 @@ const inter = Inter({
 export const metadata = {
   metadataBase: new URL('https://my-portfolio-website-green-eta.vercel.app'),
   title: 'Rana Raunitraz Singh | ML Engineer & Full-Stack Developer',
-  description: 'AI/ML engineer building scalable LLM systems and financial AI platforms.',
+  description:
+    'ML engineer building production LLM systems and financial AI platforms. BITS Pilani. Open to opportunities.',
   openGraph: {
     title: 'Rana Raunitraz Singh | ML Engineer & Full-Stack Developer',
-    description: 'AI/ML engineer building scalable LLM systems and financial AI platforms.',
+    description:
+      'ML engineer building production LLM systems and financial AI platforms. BITS Pilani. Open to opportunities.',
     url: 'https://my-portfolio-website-green-eta.vercel.app',
     siteName: 'Rana Raunitraz Singh',
     images: [
@@ -38,7 +40,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Rana Raunitraz Singh | ML Engineer & Full-Stack Developer',
-    description: 'AI/ML engineer building scalable LLM systems and financial AI platforms.',
+    description:
+      'ML engineer building production LLM systems and financial AI platforms. BITS Pilani. Open to opportunities.',
     images: ['/images/og-image.png'],
   },
   robots: {

@@ -16,11 +16,29 @@ const statusConfig = {
   },
 };
 
+const gradients = [
+  'from-accent-green/20 to-accent-blue/20',
+  'from-accent-purple/20 to-accent-green/20',
+  'from-accent-blue/20 to-accent-purple/20',
+  'from-accent-green/15 to-accent-purple/15',
+  'from-accent-blue/15 to-accent-green/15',
+];
+
+function getInitials(title) {
+  return title
+    .split(/[\s—-]+/)
+    .filter((w) => w.length > 2)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join('');
+}
+
 export default function ProjectCard({ project }) {
   const status = statusConfig[project.status] || statusConfig.completed;
   const maxTags = 5;
   const visibleTags = project.techStack.slice(0, maxTags);
   const overflowCount = project.techStack.length - maxTags;
+  const gradient = gradients[project.order % gradients.length];
 
   return (
     <motion.div
@@ -34,45 +52,61 @@ export default function ProjectCard({ project }) {
     >
       <Link
         href={`/project/${project.slug}`}
-        className="block p-5 h-full focus:outline-none focus:ring-2 focus:ring-accent-green focus:ring-inset rounded-lg"
+        className="block h-full focus:outline-none focus:ring-2 focus:ring-accent-green focus:ring-inset rounded-lg"
       >
-        {/* Status Badge */}
-        <span className={`inline-block px-2 py-0.5 text-xs font-mono rounded mb-3 ${status.color}`}>
-          {status.label}
-        </span>
-
-        {/* Title */}
-        <h3 className="text-lg font-semibold text-text-primary mb-2">{project.title}</h3>
-
-        {/* Description */}
-        <p className="text-sm text-text-secondary line-clamp-2 mb-4">{project.description}</p>
-
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {visibleTags.map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-0.5 text-xs font-mono rounded bg-accent-purple/15 text-accent-purple"
-            >
-              {tech}
-            </span>
-          ))}
-          {overflowCount > 0 && (
-            <span className="px-2 py-0.5 text-xs font-mono rounded bg-bg-terminal text-text-secondary">
-              +{overflowCount}
+        {/* Thumbnail / Gradient Placeholder */}
+        <div className={`relative h-36 bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}>
+          {project.thumbnail ? (
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="font-mono text-3xl font-bold text-text-primary/20">
+              {getInitials(project.title)}
             </span>
           )}
+          {/* Status Badge — overlaid on thumbnail */}
+          <span className={`absolute top-3 left-3 px-2 py-0.5 text-xs font-mono rounded ${status.color}`}>
+            {status.label}
+          </span>
         </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-3 border-t border-border">
-          <div className="flex items-center gap-3">
-            {project.githubUrl && <Github size={16} className="text-text-secondary" />}
-            {project.liveUrl && <ExternalLink size={16} className="text-text-secondary" />}
+        <div className="p-5">
+          {/* Title */}
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{project.title}</h3>
+
+          {/* Description */}
+          <p className="text-sm text-text-secondary line-clamp-2 mb-4">{project.description}</p>
+
+          {/* Tech Tags */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {visibleTags.map((tech) => (
+              <span
+                key={tech}
+                className="px-2 py-0.5 text-xs font-mono rounded bg-accent-purple/15 text-accent-purple"
+              >
+                {tech}
+              </span>
+            ))}
+            {overflowCount > 0 && (
+              <span className="px-2 py-0.5 text-xs font-mono rounded bg-bg-terminal text-text-secondary">
+                +{overflowCount}
+              </span>
+            )}
           </div>
-          <span className="text-xs text-accent-green flex items-center gap-1">
-            Details <ArrowRight size={12} />
-          </span>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between pt-3 border-t border-border">
+            <div className="flex items-center gap-3">
+              {project.githubUrl && <Github size={16} className="text-text-secondary" />}
+              {project.liveUrl && <ExternalLink size={16} className="text-text-secondary" />}
+            </div>
+            <span className="text-xs text-accent-green flex items-center gap-1">
+              Details <ArrowRight size={12} />
+            </span>
+          </div>
         </div>
       </Link>
     </motion.div>

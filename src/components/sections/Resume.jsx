@@ -25,8 +25,8 @@ export default function Resume() {
 
           {/* Mobile fallback */}
           <div className="md:hidden rounded-lg border border-border bg-bg-secondary p-6 text-center mb-6">
-            <p className="text-text-secondary text-sm mb-4">
-              PDF preview available on desktop. Download to view on mobile.
+            <p className="text-text-secondary text-sm">
+              Download the PDF for the full picture.
             </p>
           </div>
 
@@ -40,7 +40,7 @@ export default function Resume() {
               <Download size={16} />
               Download Resume
             </a>
-            <p className="text-xs text-text-secondary font-mono">Last updated: February 2026</p>
+            <p className="text-xs text-text-secondary font-mono">Last updated: March 2026</p>
           </div>
         </ScrollReveal>
       </div>
