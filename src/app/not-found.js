@@ -1,25 +1,20 @@
 import Link from 'next/link';
-import TerminalWindow from '@/components/ui/TerminalWindow';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="max-w-md w-full">
-        <TerminalWindow title="terminal">
-          <div className="space-y-3">
-            <p className="text-accent-green">$ cd /requested-page</p>
-            <p className="text-red-400">bash: cd: /requested-page: No such file or directory</p>
-            <p className="text-text-secondary">Error 404: Page not found</p>
-            <div className="pt-4">
-              <Link
-                href="/"
-                className="text-accent-green hover:underline focus:outline-none focus:ring-2 focus:ring-accent-green rounded"
-              >
-                $ cd ~ <span className="text-text-secondary">(go home)</span>
-              </Link>
-            </div>
-          </div>
-        </TerminalWindow>
+      <div className="max-w-md w-full text-center">
+        <p className="font-display text-7xl text-accent mb-4">404</p>
+        <p className="font-display text-2xl text-text-primary mb-3">This page never shipped.</p>
+        <p className="text-text-secondary text-sm mb-8">
+          The address may have changed, or it never existed.
+        </p>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-contrast font-medium rounded-md hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg-primary"
+        >
+          Back to the homepage
+        </Link>
       </div>
     </div>
   );

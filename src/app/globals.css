@@ -3,53 +3,50 @@
 /* Dark mode via class strategy (Tailwind v4) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ===== CSS Custom Properties (dual-value: light default, dark override) ===== */
+/* ===== CSS Custom Properties (dual-value: light default, dark override) =====
+   Palette: warm charcoal ground, ivory text, single apricot accent.
+   Light theme is warm paper — the same world, inverted. */
 :root {
-  --bg-primary: #fafafa;
-  --bg-secondary: #f0f0f5;
-  --bg-terminal: #f6f8fa;
-  --text-primary: #18181b;
-  --text-secondary: #71717a;
-  --border-color: #e4e4e7;
+  --bg-primary: #f7f5f0;
+  --bg-secondary: #ffffff;
+  --bg-raised: #efebe2;
+  --text-primary: #211e18;
+  --text-secondary: #6f695d;
+  --border-color: #e2dccf;
+  --accent: #a3660f;
+  --accent-contrast: #ffffff;
 }
 
 .dark {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --bg-terminal: #0d1117;
-  --text-primary: #e4e4e7;
-  --text-secondary: #a1a1aa;
-  --border-color: #27272a;
+  --bg-primary: #17181c;
+  --bg-secondary: #1e2025;
+  --bg-raised: #24262c;
+  --text-primary: #ece9e2;
+  --text-secondary: #a29d91;
+  --border-color: #2c2e34;
+  --accent: #e5a15a;
+  --accent-contrast: #1a130a;
 }
 
 /* ===== Tailwind Theme: Dual-value colors (resolved at runtime via CSS vars) ===== */
 @theme inline {
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
-  --color-bg-terminal: var(--bg-terminal);
+  --color-bg-raised: var(--bg-raised);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-border: var(--border-color);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
 }
 
-/* ===== Tailwind Theme: Fixed values (accents, fonts, animations) ===== */
+/* ===== Tailwind Theme: Fonts and animations ===== */
 @theme {
-  --color-accent-green: #4ade80;
-  --color-accent-blue: #60a5fa;
-  --color-accent-purple: #a78bfa;
-
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
   --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
-  --font-sans: var(--font-inter), 'Inter', sans-serif;
 
-  --animate-blink: blink 1s step-end infinite;
   --animate-fade-in-up: fadeInUp 0.5s ease-out;
-  --animate-pulse-green: pulse-green 2s ease-in-out infinite;
-
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
 
   @keyframes fadeInUp {
     from {
@@ -61,16 +58,6 @@
       transform: translateY(0);
     }
   }
-
-  @keyframes pulse-green {
-    0%,
-    100% {
-      box-shadow: 0 0 4px rgba(74, 222, 128, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
-    }
-  }
 }
 
 /* ===== Base Styles ===== */
@@ -79,7 +66,6 @@
     scroll-behavior: smooth;
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -97,20 +83,24 @@
     background: var(--text-secondary);
   }
 
-  /* Selection color */
   ::selection {
-    background-color: rgba(74, 222, 128, 0.3);
+    background-color: color-mix(in srgb, var(--accent) 30%, transparent);
     color: var(--text-primary);
   }
 }
 
 /* ===== Component Styles ===== */
 @layer components {
-  .cursor-blink {
-    animation: blink 1s step-end infinite;
+  /* Hero entrance — pure CSS so the page is visible before hydration */
+  .hero-reveal {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
-  .glow-green {
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal {
+      animation: none;
+      opacity: 1;
+    }
   }
 }

@@ -21,16 +21,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const statusConfig = {
-  live: { label: 'Live', color: 'bg-accent-green/15 text-accent-green' },
-  'in-progress': {
-    label: 'In Progress',
-    color: 'bg-accent-blue/15 text-accent-blue',
-  },
-  completed: {
-    label: 'Completed',
-    color: 'bg-text-secondary/15 text-text-secondary',
-  },
+const statusLabels = {
+  live: 'In production',
+  'in-progress': 'In progress',
+  completed: 'Completed',
 };
 
 export default async function ProjectDetailPage({ params }) {
@@ -41,41 +35,37 @@ export default async function ProjectDetailPage({ params }) {
     notFound();
   }
 
-  const status = statusConfig[project.status] || statusConfig.completed;
+  const statusLabel = statusLabels[project.status] || statusLabels.completed;
   const relatedProjects = projects
     .filter((p) => p.category === project.category && p.slug !== slug)
     .slice(0, 3);
 
   return (
-    <article className="pt-24 pb-20 px-4">
+    <article className="pt-28 pb-24 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
-        {/* Back Button */}
+        {/* Back link */}
         <Link
           href="/#projects"
-          className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent-green transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors mb-10"
         >
           <ArrowLeft size={16} />
-          Back to Projects
+          Back to projects
         </Link>
 
         {/* Header */}
-        <header className="mb-10">
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className={`px-2 py-0.5 text-xs font-mono rounded ${status.color}`}>
-              {status.label}
-            </span>
-            <span className="text-xs font-mono text-text-secondary">{project.dateRange}</span>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold font-sans text-text-primary mb-4">
+        <header className="mb-12">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent mb-4">
+            {statusLabel} · {project.dateRange}
+          </p>
+          <h1 className="font-display text-4xl md:text-5xl text-text-primary text-balance mb-6">
             {project.title}
           </h1>
 
-          {/* Tech Pills */}
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 text-xs font-mono rounded-full bg-accent-purple/15 text-accent-purple"
+                className="px-2.5 py-1 text-xs font-mono rounded bg-bg-raised text-text-secondary"
               >
                 {tech}
               </span>
@@ -83,55 +73,47 @@ export default async function ProjectDetailPage({ params }) {
           </div>
         </header>
 
-        {/* Thumbnail Banner */}
+        {/* Thumbnail banner */}
         {project.thumbnail && (
-          <div className="mb-10 rounded-lg overflow-hidden border border-border">
-            <img
-              src={project.thumbnail}
-              alt={project.title}
-              className="w-full h-auto"
-            />
+          <div className="mb-12 rounded-xl overflow-hidden border border-border">
+            <img src={project.thumbnail} alt={project.title} className="w-full h-auto" />
           </div>
         )}
 
+        {/* Metrics — the outcomes, up front */}
+        {project.metrics.length > 0 && (
+          <section className="mb-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border rounded-xl overflow-hidden">
+            {project.metrics.map((metric) => (
+              <div key={metric.label} className="bg-bg-secondary p-5">
+                <p className="font-display text-2xl md:text-3xl text-accent tabular-nums">
+                  {metric.value}
+                </p>
+                <p className="text-xs text-text-secondary mt-1.5">{metric.label}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
         {/* Description */}
-        <section className="mb-10 space-y-4">
+        <section className="mb-12 space-y-5">
           {project.longDescription.split('\n\n').map((paragraph, i) => (
-            <p key={i} className="text-text-secondary leading-relaxed">
+            <p key={i} className="text-text-secondary leading-relaxed text-[17px] max-w-[68ch]">
               {paragraph}
             </p>
           ))}
         </section>
 
-        {/* Metrics Grid */}
-        {project.metrics.length > 0 && (
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-text-primary mb-4 font-mono">Key Metrics</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {project.metrics.map((metric) => (
-                <div
-                  key={metric.label}
-                  className="rounded-lg border border-border bg-bg-secondary p-4 text-center"
-                >
-                  <p className="text-xl font-bold font-mono text-accent-green">{metric.value}</p>
-                  <p className="text-xs text-text-secondary mt-1">{metric.label}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Action Buttons */}
+        {/* Action buttons */}
         <div className="flex flex-wrap gap-4 mb-16">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-primary rounded-lg hover:border-accent-green hover:text-accent-green transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-primary rounded-md hover:border-accent hover:text-accent transition-colors"
             >
               <Github size={16} />
-              View Source
+              View source
             </a>
           )}
           {project.liveUrl && (
@@ -139,29 +121,31 @@ export default async function ProjectDetailPage({ params }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-green text-bg-primary rounded-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-accent-contrast rounded-md hover:opacity-90 transition-opacity"
             >
               <ExternalLink size={16} />
-              Live Demo
+              Live demo
             </a>
           )}
         </div>
 
-        {/* Related Projects */}
+        {/* Related projects */}
         {relatedProjects.length > 0 && (
           <section className="border-t border-border pt-10">
-            <h2 className="text-lg font-semibold text-text-primary mb-6 font-mono">
-              Related Projects
-            </h2>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-text-secondary mb-6">
+              Related projects
+            </p>
             <div className="grid md:grid-cols-3 gap-4">
               {relatedProjects.map((rp) => (
                 <Link
                   key={rp.slug}
                   href={`/project/${rp.slug}`}
-                  className="rounded-lg border border-border bg-bg-secondary p-4 hover:border-accent-green/50 transition-colors"
+                  className="rounded-xl border border-border bg-bg-secondary p-5 hover:border-accent/50 transition-colors"
                 >
-                  <h3 className="text-sm font-semibold text-text-primary mb-1">{rp.title}</h3>
-                  <p className="text-xs text-text-secondary line-clamp-2">{rp.description}</p>
+                  <h3 className="font-display text-base text-text-primary mb-1.5">{rp.title}</h3>
+                  <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">
+                    {rp.description}
+                  </p>
                 </Link>
               ))}
             </div>

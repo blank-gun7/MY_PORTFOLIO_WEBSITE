@@ -6,6 +6,10 @@ export const experiences = [
     location: 'Bangalore',
     dateRange: 'May 2025 – Present',
     type: 'current',
+    headlineMetric: {
+      value: '>99%',
+      caption: 'system uptime, in production, with paying users',
+    },
     description:
       'Building a production LLM analytics platform for financial insights. Leading a 20-member engineering team.',
     highlights: [
@@ -26,6 +30,10 @@ export const experiences = [
     location: 'Gujarat Section · Remote',
     dateRange: 'May 2025 – Present',
     type: 'current',
+    headlineMetric: {
+      value: '112K+',
+      caption: 'unlabeled chest X-rays powering SSL pretraining',
+    },
     description:
       'Researching Self-Supervised Learning methods for medical image analysis where labeled data is scarce.',
     highlights: [
@@ -42,6 +50,10 @@ export const experiences = [
     location: 'Goa',
     dateRange: 'May 2024 – July 2024',
     type: 'past',
+    headlineMetric: {
+      value: '+8%',
+      caption: 'machine uptime from predictive maintenance',
+    },
     description:
       'Built predictive maintenance models and automated equipment log analysis for manufacturing operations.',
     highlights: [
