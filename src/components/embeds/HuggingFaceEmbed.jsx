@@ -17,7 +17,7 @@ export default function HuggingFaceEmbed({ url, title }) {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-accent-green hover:underline"
+          className="inline-flex items-center gap-2 text-accent hover:underline"
         >
           Open on HuggingFace <ExternalLink size={14} />
         </a>

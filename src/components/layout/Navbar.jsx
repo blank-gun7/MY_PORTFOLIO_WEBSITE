@@ -3,13 +3,11 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import ThemeToggle from '@/components/layout/ThemeToggle';
+import { siteConfig } from '@/data/site-config';
 
 const navLinks = [
-  { label: 'About', href: '#about', id: 'about' },
-  { label: 'GitHub', href: '#github', id: 'github' },
-  { label: 'Experience', href: '#experience', id: 'experience' },
+  { label: 'Work', href: '#experience', id: 'experience' },
   { label: 'Projects', href: '#projects', id: 'projects' },
-  { label: 'Skills', href: '#skills', id: 'skills' },
   { label: 'Research', href: '#research', id: 'research' },
   { label: 'Timeline', href: '#timeline', id: 'timeline' },
   { label: 'Resume', href: '#resume', id: 'resume' },
@@ -72,17 +70,17 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-bg-primary/80 backdrop-blur-md border-b border-border' : 'bg-transparent'
+        isScrolled ? 'bg-bg-primary/85 backdrop-blur-md border-b border-border' : 'bg-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Wordmark */}
           <a
             href="#hero"
-            className="font-mono text-accent-green font-bold text-sm sm:text-base hover:opacity-80 transition-opacity"
+            className="font-display text-text-primary text-base sm:text-lg hover:text-accent transition-colors"
           >
-            rana@dev:~$
+            Rana Raunitraz Singh
           </a>
 
           {/* Desktop Navigation */}
@@ -93,14 +91,20 @@ export default function Navbar() {
                 href={link.href}
                 className={`px-3 py-2 text-sm transition-colors rounded-md ${
                   activeSection === link.id
-                    ? 'text-accent-green'
-                    : 'text-text-secondary hover:text-accent-green'
+                    ? 'text-accent'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 {link.label}
               </a>
             ))}
-            <ThemeToggle />
+            <span className="ml-3 hidden lg:inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs text-text-secondary">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              {siteConfig.availability.message}
+            </span>
+            <div className="ml-2">
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile Controls */}
@@ -108,7 +112,7 @@ export default function Navbar() {
             <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-text-secondary hover:text-accent-green transition-colors focus:outline-none focus:ring-2 focus:ring-accent-green rounded-md"
+              className="p-2 text-text-secondary hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent rounded-md"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
             >
@@ -127,10 +131,8 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
-                className={`text-lg transition-colors ${
-                  activeSection === link.id
-                    ? 'text-accent-green'
-                    : 'text-text-secondary hover:text-accent-green'
+                className={`font-display text-2xl transition-colors ${
+                  activeSection === link.id ? 'text-accent' : 'text-text-primary hover:text-accent'
                 }`}
               >
                 {link.label}

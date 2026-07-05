@@ -1,4 +1,4 @@
-import { JetBrains_Mono, Inter } from 'next/font/google';
+import { JetBrains_Mono, Fraunces, Archivo } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -10,8 +10,16 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const inter = Inter({
-  variable: '--font-inter',
+const fraunces = Fraunces({
+  variable: '--font-fraunces',
+  subsets: ['latin'],
+  display: 'swap',
+  axes: ['opsz'],
+  style: ['normal', 'italic'],
+});
+
+const archivo = Archivo({
+  variable: '--font-archivo',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -65,7 +73,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${jetbrainsMono.variable} ${inter.variable}`}
+      className={`${jetbrainsMono.variable} ${fraunces.variable} ${archivo.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -94,7 +102,7 @@ export default function RootLayout({ children }) {
       >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent-green focus:text-bg-primary focus:rounded-md focus:font-medium"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-contrast focus:rounded-md focus:font-medium"
         >
           Skip to main content
         </a>

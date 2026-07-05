@@ -97,7 +97,7 @@ export const timeline = [
     id: 'portfolio',
     date: 'Feb 2026',
     title: 'Building This Portfolio',
-    description: 'Next.js + Tailwind, terminal-inspired, open source',
+    description: 'Next.js + Tailwind, editorial redesign, open source',
     type: 'project',
     status: 'present',
     icon: 'Globe',

@@ -2,30 +2,35 @@
 
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import SectionHeader from '@/components/ui/SectionHeader';
-import TerminalWindow from '@/components/ui/TerminalWindow';
-import SkillCategory from '@/components/ui/SkillCategory';
 import { skills } from '@/data/skills';
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+    <section id="skills" className="py-24 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <SectionHeader command="$ skills --list --all" title="Skills" />
+          <SectionHeader eyebrow="Toolbox" title="What I reach for" />
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
-          <TerminalWindow title="skills">
-            {skills.map((skill) => (
-              <SkillCategory
-                key={skill.category}
-                category={skill.category}
-                command={skill.command}
-                items={skill.items}
-              />
-            ))}
-          </TerminalWindow>
-        </ScrollReveal>
+        <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10">
+          {skills.map((skill, i) => (
+            <ScrollReveal key={skill.category} delay={i * 0.05}>
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.22em] text-text-secondary border-b border-border pb-3 mb-4">
+                {skill.category}
+              </h3>
+              <ul className="flex flex-wrap gap-x-2 gap-y-2">
+                {skill.items.map((item) => (
+                  <li
+                    key={item}
+                    className="px-3 py-1 text-sm rounded-full border border-border text-text-primary"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
     </section>
   );

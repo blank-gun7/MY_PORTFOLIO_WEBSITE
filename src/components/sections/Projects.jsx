@@ -24,23 +24,27 @@ export default function Projects() {
     activeFilter === 'all' ? featured : featured.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-20 px-4">
+    <section id="projects" className="py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <SectionHeader command="$ ls projects/" title="Projects" />
+          <SectionHeader
+            eyebrow="Selected projects"
+            title="Built to answer a question"
+            description="Each project exists because a number needed proving."
+          />
         </ScrollReveal>
 
-        {/* Filter Tabs */}
+        {/* Filter tabs */}
         <ScrollReveal delay={0.1}>
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-10" role="tablist" aria-label="Project filters">
             {filters.map((filter) => (
               <button
                 key={filter.key}
                 onClick={() => setActiveFilter(filter.key)}
-                className={`px-4 py-2 text-sm font-mono rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent-green ${
+                className={`px-4 py-1.5 text-sm rounded-full border transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
                   activeFilter === filter.key
-                    ? 'bg-accent-green/15 text-accent-green border border-accent-green/30'
-                    : 'text-text-secondary border border-border hover:border-text-secondary/30'
+                    ? 'border-accent text-accent'
+                    : 'border-border text-text-secondary hover:text-text-primary'
                 }`}
               >
                 {filter.label}
@@ -49,8 +53,8 @@ export default function Projects() {
           </div>
         </ScrollReveal>
 
-        {/* Project Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Project grid */}
+        <div className="grid md:grid-cols-2 gap-4">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <ProjectCard key={project.slug} project={project} />

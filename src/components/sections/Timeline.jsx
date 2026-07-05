@@ -7,50 +7,24 @@ import { timeline } from '@/data/timeline';
 
 export default function Timeline() {
   return (
-    <section id="timeline" className="py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+    <section id="timeline" className="py-24 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <SectionHeader command="$ git log --oneline --graph" title="Timeline" />
+          <SectionHeader
+            eyebrow="Timeline"
+            title="How I got here"
+            description="Education, work, and what comes next."
+          />
         </ScrollReveal>
 
-        <div className="relative">
+        <div className="relative max-w-3xl">
           {/* Vertical line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" />
+          <div className="absolute left-[5px] top-1 bottom-1 w-px bg-border" aria-hidden="true" />
 
-          {/* Timeline entries */}
-          <div className="space-y-0">
-            {timeline.map((entry, index) => {
-              const side = index % 2 === 0 ? 'right' : 'left';
-              return (
-                <div
-                  key={entry.id}
-                  className={`relative pl-12 md:pl-0 ${
-                    side === 'left'
-                      ? 'md:pr-[calc(50%+1.5rem)] md:pl-0'
-                      : 'md:pl-[calc(50%+1.5rem)]'
-                  }`}
-                >
-                  {/* Dot positioned on the line — desktop */}
-                  <div
-                    className={`hidden md:block absolute top-4 ${
-                      side === 'left' ? 'right-[calc(50%-0.5rem)]' : 'left-[calc(50%-0.5rem)]'
-                    }`}
-                  >
-                    <div
-                      className={`w-4 h-4 rounded-full ${
-                        entry.status === 'present'
-                          ? 'bg-accent-green animate-pulse glow-green'
-                          : entry.status === 'future'
-                            ? 'border-2 border-dashed border-text-secondary bg-bg-primary'
-                            : 'bg-text-secondary'
-                      }`}
-                    />
-                  </div>
-
-                  <TimelineNode entry={entry} index={index} side={side} />
-                </div>
-              );
-            })}
+          <div>
+            {timeline.map((entry, index) => (
+              <TimelineNode key={entry.id} entry={entry} index={index} />
+            ))}
           </div>
         </div>
       </div>

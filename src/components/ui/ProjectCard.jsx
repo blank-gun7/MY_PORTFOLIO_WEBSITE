@@ -2,111 +2,79 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, ArrowRight } from 'lucide-react';
+import { Github, ArrowUpRight } from 'lucide-react';
 
-const statusConfig = {
-  live: { label: 'Live', color: 'bg-accent-green/15 text-accent-green' },
-  'in-progress': {
-    label: 'In Progress',
-    color: 'bg-accent-blue/15 text-accent-blue',
-  },
-  completed: {
-    label: 'Completed',
-    color: 'bg-text-secondary/15 text-text-secondary',
-  },
+const statusLabels = {
+  live: 'In production',
+  'in-progress': 'In progress',
+  completed: 'Completed',
 };
 
-const gradients = [
-  'from-accent-green/20 to-accent-blue/20',
-  'from-accent-purple/20 to-accent-green/20',
-  'from-accent-blue/20 to-accent-purple/20',
-  'from-accent-green/15 to-accent-purple/15',
-  'from-accent-blue/15 to-accent-green/15',
-];
-
-function getInitials(title) {
-  return title
-    .split(/[\s—-]+/)
-    .filter((w) => w.length > 2)
-    .slice(0, 2)
-    .map((w) => w[0].toUpperCase())
-    .join('');
-}
-
 export default function ProjectCard({ project }) {
-  const status = statusConfig[project.status] || statusConfig.completed;
+  const statusLabel = statusLabels[project.status] || statusLabels.completed;
+  const leadMetric = project.metrics[0];
   const maxTags = 5;
   const visibleTags = project.techStack.slice(0, maxTags);
   const overflowCount = project.techStack.length - maxTags;
-  const gradient = gradients[project.order % gradients.length];
 
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 12 }}
       transition={{ duration: 0.3 }}
-      whileHover={{ y: -4 }}
-      className="rounded-lg border border-border bg-bg-secondary overflow-hidden hover:border-accent-green/50 hover:shadow-[0_0_15px_rgba(74,222,128,0.1)] transition-colors"
+      className="group rounded-xl border border-border bg-bg-secondary hover:border-accent/50 transition-colors"
     >
       <Link
         href={`/project/${project.slug}`}
-        className="block h-full focus:outline-none focus:ring-2 focus:ring-accent-green focus:ring-inset rounded-lg"
+        className="flex flex-col h-full p-6 md:p-7 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset rounded-xl"
       >
-        {/* Thumbnail / Gradient Placeholder */}
-        <div className={`relative h-36 bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}>
-          {project.thumbnail ? (
-            <img
-              src={project.thumbnail}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <span className="font-mono text-3xl font-bold text-text-primary/20">
-              {getInitials(project.title)}
-            </span>
-          )}
-          {/* Status Badge — overlaid on thumbnail */}
-          <span className={`absolute top-3 left-3 px-2 py-0.5 text-xs font-mono rounded ${status.color}`}>
-            {status.label}
+        {/* Status + date */}
+        <div className="flex items-center justify-between mb-6">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">
+            {statusLabel}
           </span>
+          <span className="font-mono text-[11px] text-text-secondary">{project.dateRange}</span>
         </div>
 
-        <div className="p-5">
-          {/* Title */}
-          <h3 className="text-lg font-semibold text-text-primary mb-2">{project.title}</h3>
+        {/* Lead metric */}
+        {leadMetric && (
+          <div className="mb-5">
+            <p className="font-display text-4xl text-accent tabular-nums leading-none">
+              {leadMetric.value}
+            </p>
+            <p className="mt-1.5 text-xs text-text-secondary">{leadMetric.label}</p>
+          </div>
+        )}
 
-          {/* Description */}
-          <p className="text-sm text-text-secondary line-clamp-2 mb-4">{project.description}</p>
+        {/* Title + description */}
+        <h3 className="font-display text-xl text-text-primary mb-2 group-hover:text-accent transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-sm text-text-secondary leading-relaxed mb-6">{project.description}</p>
 
-          {/* Tech Tags */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
+        {/* Footer */}
+        <div className="mt-auto flex items-center justify-between pt-4 border-t border-border">
+          <div className="flex flex-wrap gap-1.5">
             {visibleTags.map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-0.5 text-xs font-mono rounded bg-accent-purple/15 text-accent-purple"
+                className="px-2 py-0.5 text-[11px] font-mono rounded bg-bg-raised text-text-secondary"
               >
                 {tech}
               </span>
             ))}
             {overflowCount > 0 && (
-              <span className="px-2 py-0.5 text-xs font-mono rounded bg-bg-terminal text-text-secondary">
+              <span className="px-2 py-0.5 text-[11px] font-mono rounded text-text-secondary">
                 +{overflowCount}
               </span>
             )}
           </div>
-
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-3 border-t border-border">
-            <div className="flex items-center gap-3">
-              {project.githubUrl && <Github size={16} className="text-text-secondary" />}
-              {project.liveUrl && <ExternalLink size={16} className="text-text-secondary" />}
-            </div>
-            <span className="text-xs text-accent-green flex items-center gap-1">
-              Details <ArrowRight size={12} />
-            </span>
-          </div>
+          <span className="flex items-center gap-2 shrink-0 ml-3 text-text-secondary group-hover:text-accent transition-colors">
+            {project.githubUrl && <Github size={15} aria-hidden="true" />}
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </span>
         </div>
       </Link>
     </motion.div>
