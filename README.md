@@ -1,6 +1,6 @@
 # Portfolio Website
 
-Terminal-themed developer portfolio built with Next.js, Tailwind CSS, and Framer Motion.
+Editorial Studio + Bento portfolio built with Next.js, Tailwind CSS v4, and Framer Motion.
 
 **Live:** [my-portfolio-website-green-eta.vercel.app](https://my-portfolio-website-green-eta.vercel.app)
 
@@ -35,7 +35,7 @@ src/
 ├── components/
 │   ├── layout/           # Navbar, Footer, ThemeToggle
 │   ├── sections/         # Hero, About, Experience, Projects, etc.
-│   ├── ui/               # TerminalWindow, ProjectCard, ScrollReveal, etc.
+│   ├── ui/               # ProjectCard, ContributionGrid, ScrollReveal, etc.
 │   └── embeds/           # HuggingFace embed
 ├── data/                 # All site content (projects, skills, experience, etc.)
 ├── hooks/                # useTheme, useTypewriter
