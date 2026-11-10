@@ -11,6 +11,10 @@ import Timeline from '@/components/sections/Timeline';
 import Resume from '@/components/sections/Resume';
 import Contact from '@/components/sections/Contact';
 
+// Re-render at most hourly so the GitHub contribution graph stays current
+// without a redeploy. Requires a server/ISR-capable build (no `output: 'export'`).
+export const revalidate = 3600;
+
 export default async function Home() {
   const { sections } = siteConfig;
   const contributions = sections.github ? await getContributionData('blank-gun7') : null;

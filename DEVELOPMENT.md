@@ -171,6 +171,10 @@ Place `og-image.png` (1200x630) in `public/images/`.
 
 Edit `src/app/layout.js` (metadata export, JSON-LD) and `src/data/site-config.js`.
 
+### GitHub Contribution Graph
+
+`src/lib/githubContributions.js` scrapes `https://github.com/users/<user>/contributions` on the server. `src/app/page.js` sets `revalidate = 3600`, so the page is re-rendered at most hourly on Vercel (ISR) and the graph updates without a redeploy. This requires that `next.config.mjs` does **not** set `output: 'export'` (a static export never re-runs the fetch) and that the Vercel project has no Output Directory override. Private-repo contributions appear only if "Include private contributions on my profile" is enabled in GitHub profile settings.
+
 ### Change Design Tokens
 
 All tokens are in `src/app/globals.css` — colors, fonts, animations.

@@ -1,10 +1,10 @@
 const CONTRIBUTIONS_URL = (username) => `https://github.com/users/${username}/contributions`;
 
-// GitHub's own contribution graph, scraped at build time. Avoids depending on
+// GitHub's own contribution graph, scraped at build time and re-scraped on ISR revalidation (hourly). Avoids depending on
 // third-party mirror APIs that cache aggressively and can't be force-refreshed.
 export async function getContributionData(username) {
   try {
-    const res = await fetch(CONTRIBUTIONS_URL(username));
+    const res = await fetch(CONTRIBUTIONS_URL(username), { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error(`GitHub returned ${res.status}`);
     const html = await res.text();
 
